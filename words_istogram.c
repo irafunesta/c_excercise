@@ -1,6 +1,7 @@
 #include<stdio.h>
 
 /*
+    K&R Ex.1-13
     Write a program to print a histogram of the lengths of words in its input. It is 
 easy to draw the histogram with the bars horizontal; a vertical orientation is more challenging
 
@@ -11,31 +12,28 @@ easy to draw the histogram with the bars horizontal; a vertical orientation is m
 
  */
 
+#define MAX_LENGTH 10
+
 int main()
 {
-    int histogram[10]; //histogram 0-10 are words of lenght 0-10
+    int histogram[MAX_LENGTH]; //histogram 0-10 are words of lenght 0-10
     int c, in_words, word_length, max_lenght, words_num;
 
     in_words = word_length = max_lenght = words_num = 0;
 
-    for(int j = 0; j<10; ++j)
+    for(int j = 0; j<MAX_LENGTH; ++j)
     {
         histogram[j]=0;
     }
 
     while((c = getchar()) != EOF)
-    {
-        // printf("---------------------------\n");
-        // printf("c:%c\n", c);
-        // printf("in_words:%d\n", in_words);
-        // printf("word_length:%d\n", word_length);
-        
+    {        
         if(c == ' ' || c == '\t' || c == '\n') // i have reached a special char, the word end
         {
             if(in_words == 1)
             {
                 ++histogram[word_length];
-                if(histogram[word_length] > max_lenght && histogram[word_length] < 10)
+                if(histogram[word_length] > max_lenght && histogram[word_length] < MAX_LENGTH)
                 {
                     max_lenght = word_length;
                 }
@@ -45,10 +43,8 @@ int main()
         }    
         else // c is a char
         {
-            // printf("normal char\n");
             if(in_words == 0)
             {
-                // printf("next word\n");
                 ++words_num;
                 in_words = 1;
             }
@@ -62,7 +58,9 @@ int main()
         in_words = 0;
     }
 
-    for(int i=1; i< 10; ++i)
+    printf("----------------------------\n");
+
+    for(int i=1; i< MAX_LENGTH; ++i)
     {
         //Print histogram bars
         printf("%d ", i); // Number
@@ -78,5 +76,6 @@ int main()
         printf("%d", j);
     }
     printf("\n");
-    printf("w:%d\n", words_num);
+    printf("----------------------------\n");
+    printf("total words:%d\n", words_num);
 }
